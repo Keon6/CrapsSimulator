@@ -15,5 +15,7 @@ I will run some simulations to test the betting strategy outputted by the optimi
 
 ## Why should you care?
 Disclaimer first, I am not guaranteeing any successful Craps betting strategy. 
-I am taking a probabilistic approach and see what betting strategyhas the best expected profit or has the least chance of losing money.
-Please be careful! I'm not liable for any loss of money.
+I am taking a probabilistic approach and see what betting strategy has the best expected profit or has the least chance of losing money.
+Please be careful! 
+
+I'm not liable for you losing money.
