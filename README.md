@@ -14,7 +14,7 @@ I will run some non linear optimization to optimize either:
 I will run some simulations to test the betting strategy outputted by the optimization and how well it does.
 
 ## Why should you care?
-Disclaimer first, I am not guaranteeing any successful Craps betting strategy. 
+Disclaimer first, I am not guaranteeing any successful Craps betting strategy. In fact, all casino games, including Craps are designed to bin favor of the Casino, not the players.
 I am taking a probabilistic approach and see what betting strategy has the best expected profit or has the least chance of losing money.
 Please be careful! 
 
