@@ -5,10 +5,11 @@ Python program that simulates a game of craps, helps you judge your betting stra
 This is for a algorithms for non-linear optimization class, but it might be useful for general purposes for both degenerate or occaisional gamblers.
 
 ## What?
-I will run some non linear optimization to optimize either:
+I will run some non linear optimization to Maximize:
 
-1. Maximize Expected Profit/Loss
-2. Minimize Variance of Profit/Loss
+Utility Function defined as: 
+E[W] - c*Var(W)
+Or in words, the expected profit minus penalty given by variance of profit, wehre c is a parameter on how much to penalize the variance.
 
 ## How?
 I will run some simulations to test the betting strategy outputted by the optimization and how well it does.
