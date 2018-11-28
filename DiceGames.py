@@ -31,13 +31,16 @@ class Die:
     def roll(self):
         return np.random.choice(np.arange(1, self.__dimension+1), p=self.__probabilities)
 
-    def __add__(self, another_die):
+    def __add__(self, *args):
         """
-        Add the sum of 2 dice rolls
+        Add the sum of multiple dice rolls
         :param another_die:
         :return: return summ of 2 dice rolls
         """
-        return self.roll + another_die.roll
+        roll_sum = self.roll
+        for die in args:
+            roll_sum += die.roll
+        return roll_sum
 
 
 class DiceGame(metaclass=abc.ABCMeta):
@@ -55,17 +58,12 @@ class DiceGame(metaclass=abc.ABCMeta):
         self.__players_wins = dict()
         for player_numb in range(numb_players):
             self.__players_wins[player_numb] = 0
+        self.__players_bets = dict()
+        for player_numb in range(numb_players):
+            self.__players_bets[player_numb] = dict()
 
     @abc.abstractmethod
     def play(self):
-        pass
-
-    @abc.abstractmethod
-    def prompt(self, *args):
-        """
-        Prompt a player for his/her strategy
-        :return:
-        """
         pass
 
     @property
@@ -79,3 +77,15 @@ class DiceGame(metaclass=abc.ABCMeta):
     @property
     def players_wins(self):
         return self.__players_wins
+
+    # TODO
+    def set_player_wins(self, *args):
+        pass
+
+    @property
+    def players_bets(self):
+        return self.__players_bets
+
+    # TODO
+    def set_player_bets(self, *args):
+        pass
