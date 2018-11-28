@@ -2,7 +2,7 @@ import numpy as np
 import abc
 
 '''
-Bases Classes for Die and DiceGame classes
+Base Classes for Die and DiceGame classes
 Die shouldn't really have any children classes though because it's simple and abstract enough to initialize any die type
 '''
 
@@ -44,21 +44,38 @@ class DiceGame(metaclass=abc.ABCMeta):
     """
     Abstract Class for DiceGame
     """
-    def __init__(self, numb_players, my_bets):
+    def __init__(self, numb_players):
         """
         :param numb_players: number of players except me
         :param my_bets: some data structure containing how to carry out my bets
         """
         self.__numb_players = numb_players  # number of players for the game
         self._players = dict()
-        self.__my_bets = my_bets
         self.__dice = list()  # list of dice in the game
-        self.__my_wins = 0
+        self.__players_wins = dict()
+        for player_numb in range(numb_players):
+            self.__players_wins[player_numb] = 0
 
     @abc.abstractmethod
     def play(self):
         pass
 
+    @abc.abstractmethod
+    def prompt(self, *args):
+        """
+        Prompt a player for his/her strategy
+        :return:
+        """
+        pass
 
+    @property
+    def numb_players(self):
+        return self.__numb_players
 
+    @property
+    def players(self):
+        return self._players
 
+    @property
+    def players_wins(self):
+        return self.__players_wins
