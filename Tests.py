@@ -13,7 +13,7 @@ def test(numb_players, bet_type):
 
 
 if __name__ == "__main__":
-    for n in range(1,6):
+    for n in range(1, 6):
         test(numb_players=n, bet_type=1)
         test(numb_players=n, bet_type=2)
         test(numb_players=n, bet_type=3)

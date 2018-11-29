@@ -11,7 +11,7 @@ class Craps(DiceGame):
         # bet_type=2: allow field bets too
         # bet_type=3: allow place bets
         self.__bet_type = bet_type
-        if self.__bet_type != (1 or 2 or 3):  # automatically default to some bet_type using modulus
+        if self.__bet_type not in [1, 2, 3]:  # automatically default to some bet_type using modulus
             self.__bet_type = self.__bet_type % 3 + 1
 
     def __reset_bets_and_wins(self):
@@ -42,7 +42,7 @@ class Craps(DiceGame):
         on = self.__dice[0] + self.__dice[1]  # 1st roll dice sum = on
         print(f"On = {on}")
 
-        if on == (2 or 3 or 12):
+        if on in [2, 3, 12]:
             print("House Wins")
             # Allocate Wins
             for player_number in range(self.numb_players):
@@ -50,7 +50,7 @@ class Craps(DiceGame):
             # Print Current bets and wins of all players
             print("Current Bets: ", self.players_bets, " | Current wins", self.players_wins)
 
-        elif on == (7 or 11):
+        elif on in [7, 11]:
             print("Players Win")
             # Allocate Wins
             for player_number in range(self.numb_players):
@@ -59,9 +59,14 @@ class Craps(DiceGame):
             print("Current Bets: ", self.players_bets, " | Current wins", self.players_wins)
 
         else:
+            # Allocate Wins
+            for player_number in range(self.numb_players):
+                self.__allocate_wins(player_number=player_number, final_roll=False, dice_sum=on)
+            # Print Current bets and wins of all players
+            print("Current Bets: ", self.players_bets, " | Current wins", self.players_wins)
             # Continue Rolling Otherwise
             dice_sum = 0
-            while dice_sum != (7 or on):  # Continue Rolling until game ends
+            while dice_sum not in [7, on]:  # Continue Rolling until game ends
                 # Update number of rolls
                 roll_count += 1
                 print(f"---- Roll {roll_count} ----")
@@ -72,7 +77,6 @@ class Craps(DiceGame):
                 # Roll Dice and take sum
                 dice_sum = self.__dice[0] + self.__dice[1]
                 print(f"Dice Sum = {dice_sum}")
-
                 if dice_sum != (7 or on):
                     # Allocate Wins
                     for player_number in range(self.numb_players):
@@ -109,18 +113,18 @@ class Craps(DiceGame):
                 self.players_bets[player_number]["DP"] = int(input("How much do you wanna bet?"))
         # Any Rolls
         if self.__bet_type == 1:
-            pass  # Can't change Pass/Don't Pass Bets
+            pass
+            # Can't change Pass/Don't Pass Bets
         elif self.__bet_type == 2:
             print("Field Bet")
             self.players_bets[player_number]["F"] = int(input("Field Bet Amount?"))
-            pass
+
         elif self.__bet_type == 3:
             print("Field Bet")
             self.players_bets[player_number]["F"] = int(input("Field Bet Amount?"))
             print("Place Bets")
             self.players_bets[player_number]["PL6"] = int(input("How much on 6?"))
             self.players_bets[player_number]["PL8"] = int(input("How much on 8?"))
-            pass
 
     def __allocate_wins(self, player_number, final_roll, dice_sum, house_win=None):
         """
@@ -128,11 +132,11 @@ class Craps(DiceGame):
         :return:
         """
         # Take care of field and place bets first
-        if dice_sum == (2 or 12):  # 2x on field, lose on place bets
+        if dice_sum in [2, 12]:  # 2x on field, lose on place bets
             self.players_wins[player_number] += \
-                (2 * self.players_bets[player_number]["F"]
+                (2*self.players_bets[player_number]["F"]
                  - self.players_bets[player_number]["PL6"] - self.players_bets[player_number]["PL8"])
-        elif dice_sum == (3 or 4 or 9 or 10 or 11):  # 1x on field, lose on place bets
+        elif dice_sum in [3, 4, 9, 10, 11]:  # 1x on field, lose on place bets
             self.players_wins[player_number] += \
                 (self.players_bets[player_number]["F"]
                  - self.players_bets[player_number]["PL6"] - self.players_bets[player_number]["PL8"])

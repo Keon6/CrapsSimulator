@@ -78,14 +78,7 @@ class DiceGame(metaclass=abc.ABCMeta):
     def players_wins(self):
         return self.__players_wins
 
-    # TODO
-    def set_player_wins(self, *args):
-        pass
-
     @property
     def players_bets(self):
         return self.__players_bets
 
-    # TODO
-    def set_player_bets(self, *args):
-        pass
