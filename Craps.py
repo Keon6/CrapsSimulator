@@ -131,35 +131,26 @@ class Craps(DiceGame):
         Allocate or take wins depending on player's performance
         :return:
         """
-        # Take care of field and place bets first
-        if dice_sum in [2, 12]:  # 2x on field, lose on place bets
+        # Take care of field bets
+        if dice_sum in [2, 12]:  # 2x on field
+            self.players_wins[player_number] += 2*self.players_bets[player_number]["F"]
+        elif dice_sum in [3, 4, 9, 10, 11]:  # 1x on field
+            self.players_wins[player_number] += self.players_bets[player_number]["F"]
+        elif dice_sum == 5:  # lose on field
+            self.players_wins[player_number] += -self.players_bets[player_number]["F"]
+        elif dice_sum == 6:  # lose on field, 1X on PL6
             self.players_wins[player_number] += \
-                (2*self.players_bets[player_number]["F"]
-                 - self.players_bets[player_number]["PL6"] - self.players_bets[player_number]["PL8"])
-        elif dice_sum in [3, 4, 9, 10, 11]:  # 1x on field, lose on place bets
+                (-self.players_bets[player_number]["F"] + self.players_bets[player_number]["PL6"])
+        elif dice_sum == 8:  # lose on field, 1x on PL8
             self.players_wins[player_number] += \
-                (self.players_bets[player_number]["F"]
-                 - self.players_bets[player_number]["PL6"] - self.players_bets[player_number]["PL8"])
-        elif dice_sum == 5:  # lose on field, lose on place bets
-            self.players_wins[player_number] += \
-                -(self.players_bets[player_number]["F"]
-                  + self.players_bets[player_number]["PL6"] + self.players_bets[player_number]["PL8"])
-        elif dice_sum == 6:  # lose on field, 1X on PL6, lose on PL8
-            self.players_wins[player_number] += \
-                (-self.players_bets[player_number]["F"]
-                 + self.players_bets[player_number]["PL6"] - self.players_bets[player_number]["PL8"])
-        elif dice_sum == 8:  # lose on field, lose on PL6, 1x on PL8
-            self.players_wins[player_number] += \
-                (-self.players_bets[player_number]["F"]
-                 - self.players_bets[player_number]["PL6"] + self.players_bets[player_number]["PL8"])
+                (-self.players_bets[player_number]["F"] + self.players_bets[player_number]["PL8"])
 
         # Last roll, also take care of pass/don't pass bets
         if final_roll:
             if house_win:
                 self.players_wins[player_number] += \
-                    (self.players_bets[player_number]["DP"]-self.players_bets[player_number]["P"])
-                pass
+                    (self.players_bets[player_number]["DP"]-self.players_bets[player_number]["P"]
+                     - self.players_bets[player_number]["PL6"] - self.players_bets[player_number]["PL8"])
             else:
                 self.players_wins[player_number] += \
                     (self.players_bets[player_number]["P"] - self.players_bets[player_number]["DP"])
-                pass
