@@ -54,8 +54,16 @@ def gradient_pf(x):
 if __name__ == "__main__":
     # C=0 means just maximize expected value
     for c in range(5):
-        res = minimize(f_pdp, np.array([1, 1]), method="L-BFGS-B", jac=gradient_pdp, bounds=[(0, 1), (0, 1)])
         print(f"######## c={c} ########")
+        # Pass / Don't Pass
+        res = minimize(f_pdp, np.array([1, 1]), method="L-BFGS-B", jac=gradient_pdp, bounds=[(0, 1), (0, 1)])
+        print("------ Pass/Don't Pass ------")
+        print("Solutions: ", res.x)
+        print("Utility Value:", -res.fun)
+        print(res.message)
+        # Pass + Field
+        res = minimize(f_pf, np.array([1, 1]), method="L-BFGS-B", jac=gradient_pf, bounds=[(0, 1), (0, 1)])
+        print("------ Pass + Field ------")
         print("Solutions: ", res.x)
         print("Utility Value:", -res.fun)
         print(res.message)
