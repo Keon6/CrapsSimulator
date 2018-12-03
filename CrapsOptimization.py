@@ -1,6 +1,6 @@
 import numpy as np
 import math
-from scipy.optimize import minimize
+from scipy.optimize import minimize, LinearConstraint
 '''
 Script running non-linear optimization to find best Craps strategy
 '''
@@ -53,16 +53,21 @@ def gradient_pf(x):
 
 if __name__ == "__main__":
     # C=0 means just maximize expected value
+
+    bnds = ((0, math.inf), (0, math.inf))
+    cons = ({'type': "ineq", "fun" : lambda x: x[0]+x[1]+1})
+    # cons = None
     for c in range(5):
         print(f"######## c={c} ########")
         # Pass / Don't Pass
-        res = minimize(f_pdp, np.array([1, 1]), method="L-BFGS-B", jac=gradient_pdp, bounds=[(0, 1), (0, 1)])
+        res = minimize(f_pdp, np.array([1, 1]), method="SLSQP", jac=gradient_pdp, bounds=bnds, constraints=cons)
         print("------ Pass/Don't Pass ------")
         print("Solutions: ", res.x)
         print("Utility Value:", -res.fun)
         print(res.message)
+        pdp = res.x
         # Pass + Field
-        res = minimize(f_pf, np.array([1, 1]), method="L-BFGS-B", jac=gradient_pf, bounds=[(0, 1), (0, 1)])
+        res = minimize(f_pf, np.array([1, 1]), method="SLSQP", jac=gradient_pf, bounds=[(pdp[0], pdp[0]),(0,math.inf)], constraints=cons)
         print("------ Pass + Field ------")
         print("Solutions: ", res.x)
         print("Utility Value:", -res.fun)
