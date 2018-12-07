@@ -63,7 +63,7 @@ class DiceGame(metaclass=abc.ABCMeta):
             self.__players_bets[player_numb] = dict()
 
     @abc.abstractmethod
-    def play(self):
+    def play(self, *args):
         pass
 
     @property
