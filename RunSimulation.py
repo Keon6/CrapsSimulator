@@ -45,5 +45,9 @@ def run_simulation_different_roll_counts(c):
     # return player_profits
 
 
-for c in range(3):
-    print(run_simulation_different_roll_counts(c))
+def __main__():
+    for c in range(3):
+        print(run_simulation_different_roll_counts(c))
+
+
+__main__()
