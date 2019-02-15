@@ -19,10 +19,7 @@ class Die:
         :return:
         """
         if self.__fair:
-            probabilities = list()
-            p = 1/self.__dimension
-            for numb in range(self.__dimension):
-                probabilities.append(p)
+            return [1/self.__dimension] * self.__dimension
         else:
             return probabilities
         return probabilities
