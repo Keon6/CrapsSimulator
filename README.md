@@ -26,7 +26,7 @@ Just run it in a command line with no arguments. It will prompt you to enter inp
 When prompted to "pass or not pass", type 'p' to pass or 'd' to not pass.
 
 ## Why?
-This is a simulation I made for a algorithms for non-linear optimization class, but it might be useful for general purposes for both degenerate or occaisional gamblers.
+This is a simulation I made for fun, but it might be useful for general purposes for both degenerate or occaisional gamblers.
 
 ## What?
 I will run some non linear optimization to Maximize:
